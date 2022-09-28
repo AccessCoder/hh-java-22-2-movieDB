@@ -1,14 +1,10 @@
 package com.example.backend.service;
 
-import com.example.backend.model.ApiMovie;
+import com.example.backend.api.MovieApiService;
 import com.example.backend.model.Movie;
-import com.example.backend.repository.MovieRepo;
+import com.example.backend.repository.FavoriteMovieRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -16,26 +12,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieService {
 
-
-    private final MovieRepo repo;
+    private final MovieApiService movieApiService;
+    private final FavoriteMovieRepo favoriteMovieRepo;
 
     public List<Movie> getAllMovies(){
-        return repo.getAllMovies();
+        // Search with some default query
+        return movieApiService.getMoviesByName("java");
     }
 
-    WebClient webClient = WebClient.create("http://www.omdbapi.com/");
-
-    public ApiMovie getMovieByName(String name){
-        ApiMovie response = webClient.get()
-                .uri("?apikey=f42160a1&s="+name)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .retrieve()
-                .toEntity(ApiMovie.class)
-                .block()
-                .getBody();
-        return response;
+    public List<Movie> getMoviesByName(String name) {
+        return movieApiService.getMoviesByName(name);
     }
 
+    public List<Movie> getFavoriteMovies() {
+        return favoriteMovieRepo.getAllFavoriteMovies();
 
+    }
 
+    public Movie addFavoriteMovie(String id) {
+        Movie foundMovie = movieApiService.getMovieById(id);
+
+        return favoriteMovieRepo.addFavoriteMovie(foundMovie);
+    }
+
+    public void deleteFavoriteMovie(String id) {
+        favoriteMovieRepo.deleteFavoriteMovie(id);
+    }
+
+    public Movie getMovieById(String id) {
+        return movieApiService.getMovieById(id);
+    }
 }

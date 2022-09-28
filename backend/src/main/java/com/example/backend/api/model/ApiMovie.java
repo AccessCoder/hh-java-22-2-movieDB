@@ -1,4 +1,4 @@
-package com.example.backend.model;
+package com.example.backend.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -12,16 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ApiMovie {
 
+    @JsonProperty("imdbID")
+    private String id;
     @JsonProperty("Title")
-    String title;
+    private String title;
     @JsonProperty("Year")
-    String year;
-    @JsonProperty("Released")
-    String released;
-    @JsonProperty("Genre")
-    String genre;
-    @JsonProperty("Plot")
-    String plot;
+    private String year;
     @JsonProperty("Poster")
-    String poster;
+    private String poster;
 }
