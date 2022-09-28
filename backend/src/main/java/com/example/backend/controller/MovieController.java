@@ -15,14 +15,9 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping
-    public List<Movie> getMovies(){
-        return movieService.getAllMovies();
-    }
+    public List<Movie> getMoviesByTitle(@RequestParam(required = false) String title){
 
-    @GetMapping("/title/{name}")
-    public List<Movie> getMoviesByName(@PathVariable String name){
-
-        return movieService.getMoviesByName(name);
+        return movieService.getMoviesByTitle(title);
     }
 
     @GetMapping("/{id}")

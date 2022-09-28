@@ -35,9 +35,9 @@ public class MovieApiService {
         return mapToMovie(apiMovieResponse);
     }
 
-    public List<Movie> getMoviesByName(String name) {
+    public List<Movie> getMoviesByTitle(String title) {
 
-        String uri = "?apikey=" + API_KEY + "&s=" + name;
+        String uri = "?apikey=" + API_KEY + "&s=" + title;
 
         OmdbResponse apiMoviesResponse = webClient.get()
                 .uri(uri)

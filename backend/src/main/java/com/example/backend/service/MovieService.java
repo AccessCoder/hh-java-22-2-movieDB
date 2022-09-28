@@ -15,18 +15,17 @@ public class MovieService {
     private final MovieApiService movieApiService;
     private final FavoriteMovieRepo favoriteMovieRepo;
 
-    public List<Movie> getAllMovies(){
-        // Search with some default query
-        return movieApiService.getMoviesByName("java");
-    }
+    public List<Movie> getMoviesByTitle(String title) {
+        if (title == null){
+            // Search with some default query
+            title = "java";
+        }
 
-    public List<Movie> getMoviesByName(String name) {
-        return movieApiService.getMoviesByName(name);
+        return movieApiService.getMoviesByTitle(title);
     }
 
     public List<Movie> getFavoriteMovies() {
         return favoriteMovieRepo.getAllFavoriteMovies();
-
     }
 
     public Movie addFavoriteMovie(String id) {
