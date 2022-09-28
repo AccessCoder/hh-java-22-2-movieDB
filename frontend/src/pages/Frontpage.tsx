@@ -1,10 +1,11 @@
 import {FormEvent, useState} from "react";
 import axios from "axios";
+import {Movie} from "../model/Movie";
 
 export default function Frontpage(){
 
     const[searchName, setSearchName] = useState("")
-    const[searchResult, setSearchResult] = useState("")
+    const[searchResult, setSearchResult] = useState<Movie>()
 
     const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -16,12 +17,12 @@ export default function Frontpage(){
     return(
         <>
         <header>Super Krasse Movie DB (SKMDB!)</header>
-            <form onSubmit={(e) =>handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <p>Search your favourite Movie</p>
                 <textarea value={searchName} onChange={(e) => setSearchName(e.target.value)}/>
                 <button type={"submit"}>GO!</button>
             </form>
-            <h1>{searchResult}</h1>
+            { searchResult ? <h1>{searchResult.Title}</h1> : <h1>Not Found</h1>}
         </>
     )
 }

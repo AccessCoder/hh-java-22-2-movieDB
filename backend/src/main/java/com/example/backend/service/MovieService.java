@@ -22,14 +22,12 @@ public class MovieService {
     public List<Movie> getAllMovies(){
         return repo.getAllMovies();
     }
-    @Value("${OMDB_API_KEY}")
-    private String apiKey;
 
     WebClient webClient = WebClient.create("http://www.omdbapi.com/");
 
     public ApiMovie getMovieByName(String name){
         ApiMovie response = webClient.get()
-                .uri("?apikey=f42160a1&t="+name)
+                .uri("?apikey=f42160a1&s="+name)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .toEntity(ApiMovie.class)
