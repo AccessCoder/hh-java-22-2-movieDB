@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.api.MovieApiService;
 import com.example.backend.model.Movie;
+import com.example.backend.model.MovieDetail;
 import com.example.backend.repository.FavoriteMovieRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class MovieService {
     }
 
     public Movie addFavoriteMovie(String id) {
-        Movie foundMovie = movieApiService.getMovieById(id);
+        MovieDetail foundMovie = movieApiService.getMovieById(id);
 
         return favoriteMovieRepo.addFavoriteMovie(foundMovie);
     }
@@ -38,7 +39,7 @@ public class MovieService {
         favoriteMovieRepo.deleteFavoriteMovie(id);
     }
 
-    public Movie getMovieById(String id) {
+    public MovieDetail getMovieById(String id) {
         return movieApiService.getMovieById(id);
     }
 }

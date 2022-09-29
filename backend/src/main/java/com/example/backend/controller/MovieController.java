@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Movie;
+import com.example.backend.model.MovieDetail;
 import com.example.backend.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public Movie getMovieById(@PathVariable String id){
+    public MovieDetail getMovieById(@PathVariable String id){
 
         return movieService.getMovieById(id);
     }

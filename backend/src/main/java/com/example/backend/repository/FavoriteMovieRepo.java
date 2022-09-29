@@ -2,6 +2,7 @@ package com.example.backend.repository;
 
 
 import com.example.backend.model.Movie;
+import com.example.backend.model.MovieDetail;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -16,7 +17,7 @@ public class FavoriteMovieRepo {
         return new ArrayList<>(favoriteMovies.values());
     }
 
-    public Movie addFavoriteMovie(Movie movie){
+    public MovieDetail addFavoriteMovie(MovieDetail movie){
         favoriteMovies.put(movie.getId(), movie);
 
         return movie;

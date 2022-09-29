@@ -1,8 +1,10 @@
 package com.example.backend.api;
 
 import com.example.backend.api.model.ApiMovie;
+import com.example.backend.api.model.ApiMovieDetail;
 import com.example.backend.model.Movie;
 import com.example.backend.api.model.OmdbResponse;
+import com.example.backend.model.MovieDetail;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,12 +21,12 @@ public class MovieApiService {
 
     WebClient webClient = WebClient.create("http://www.omdbapi.com/");
 
-    public Movie getMovieById(String id) {
-        ApiMovie apiMovieResponse = webClient.get()
+    public MovieDetail getMovieById(String id) {
+        ApiMovieDetail apiMovieResponse = webClient.get()
                 .uri("?apikey=" + API_KEY + "&i=" + id)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
-                .toEntity(ApiMovie.class)
+                .toEntity(ApiMovieDetail.class)
                 .block()
                 .getBody();
 
@@ -62,6 +64,18 @@ public class MovieApiService {
                 .title(apiMovieResponse.getTitle())
                 .year(apiMovieResponse.getYear())
                 .poster(apiMovieResponse.getPoster())
+                .build();
+    }
+
+    private static MovieDetail mapToMovie(ApiMovieDetail apiMovieResponse) {
+        return MovieDetail.movieDetailBuilder()
+                .id(apiMovieResponse.getId())
+                .title(apiMovieResponse.getTitle())
+                .year(apiMovieResponse.getYear())
+                .poster(apiMovieResponse.getPoster())
+                .plot(apiMovieResponse.getPlot())
+                .runtime(apiMovieResponse.getRuntime())
+                .rating(apiMovieResponse.getRating())
                 .build();
     }
 
